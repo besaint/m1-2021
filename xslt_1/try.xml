@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="svg.xsl" ?>
+<root>
+    <строка>
+        <операнд>σ</операнд>
+        <оператор>=</оператор>
+        <корень>
+            <строка>
+                <дробь>
+                    <строка>
+                        <число>1</число>
+                    </строка>
+                    <строка>
+                        <операнд>N</операнд>
+                    </строка>
+                </дробь>
+                <строка>
+                    <низверх>
+                        <строка>
+                            <оператор>∑</оператор>
+                        </строка>
+                        <строка>
+                            <операнд>i</операнд>
+                            <оператор>=</оператор>
+                            <число>1</число>
+                        </строка>
+                        <строка>
+                            <операнд>N</операнд>
+                        </строка>
+                    </низверх>
+                    <строка>
+                        <верх>
+                            <строка>
+                                <оператор >(</оператор>
+                                <низ>
+                                    <строка>
+                                        <операнд>x</операнд>
+                                    </строка>
+                                    <строка>
+                                        <операнд>i</операнд>
+                                    </строка>
+                                </низ>
+                                <оператор>−</оператор>
+                                <операнд>μ</операнд>
+                                <оператор >)</оператор>
+                            </строка>
+                            <строка>
+                                <число>2</число>
+                            </строка>
+                        </верх>
+                    </строка>
+                </строка>
+            </строка>
+        </корень>
+        <оператор>.</оператор>
+    </строка>
+</root>
+
+<?xml version="1.0" encoding="utf-8" ?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+    <xsl:template match="/">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+        <semantics>
+            <xsl:for-each select="root/*">
+                <mrow>
+                    <xsl:apply-templates select="." />
+                </mrow>
+            </xsl:for-each>
+        </semantics>
+        </math>
+    </xsl:template>
+
+    <xsl:template match="строка">
+        <mrow>
+            <xsl:for-each select="./*">
+                <xsl:apply-templates select="." />
+            </xsl:for-each>
+        </mrow>
+    </xsl:template>
+
+    <xsl:template match="операнд">
+        <mi><xsl:value-of select="." /></mi>
+    </xsl:template>
+
+    <xsl:template match="оператор">
+        <mo><xsl:value-of select="." /></mo>
+    </xsl:template>
+
+    <xsl:template match="число">
+        <mn><xsl:value-of select="." /></mn>
+    </xsl:template>
+
+    <xsl:template match="корень">
+        <msqrt>
+            <xsl:for-each select="./*">
+                <xsl:apply-templates select="." />
+            </xsl:for-each>
+        </msqrt>
+    </xsl:template>
+
+    <xsl:template match="дробь">
+        <mfrac>
+            <xsl:for-each select="./*">
+                <xsl:apply-templates select="." />
+            </xsl:for-each>
+        </mfrac>
+    </xsl:template>
+
+    <xsl:template match="низверх">
+        <munderover>
+            <xsl:for-each select="./*">
+                <xsl:apply-templates select="." />
+            </xsl:for-each>
+        </munderover>
+    </xsl:template>
+
+    <xsl:template match="верх">
+        <msup>
+            <xsl:for-each select="./*">
+                <xsl:apply-templates select="." />
+            </xsl:for-each>
+        </msup>
+    </xsl:template>
+
+    <xsl:template match="низ">
+        <msub>
+            <xsl:for-each select="./*">
+                <xsl:apply-templates select="." />
+            </xsl:for-each>
+        </msub>
+    </xsl:template>
+    
+</xsl:stylesheet>
