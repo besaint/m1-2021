@@ -2,15 +2,25 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template match="/">
-        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-        <semantics>
-            <xsl:for-each select="root/*">
-                <mrow>
-                    <xsl:apply-templates select="." />
-                </mrow>
-            </xsl:for-each>
-        </semantics>
-        </math>
+
+        <html>
+            <head>
+                <title>Задание №1</title>
+                <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+            </head>
+
+            <body>
+                <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                <semantics>
+                    <xsl:for-each select="root/*">
+                        <mrow>
+                            <xsl:apply-templates select="." />
+                        </mrow>
+                    </xsl:for-each>
+                </semantics>
+                </math>
+            </body>
+        </html>
     </xsl:template>
 
     <xsl:template match="строка">
